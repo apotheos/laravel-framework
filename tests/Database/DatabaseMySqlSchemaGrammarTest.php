@@ -364,12 +364,22 @@ class DatabaseMySqlSchemaGrammarTest extends PHPUnit_Framework_TestCase {
 	public function testAddingFloat()
 	{
 		$blueprint = new Blueprint('users');
-		$blueprint->float('foo', 5, 2);
+		$blueprint->float('foo');
 		$statements = $blueprint->toSql($this->getConnection(), $this->getGrammar());
 
 		$this->assertEquals(1, count($statements));
-		$this->assertEquals('alter table `users` add `foo` float(5, 2) not null', $statements[0]);
+		$this->assertEquals('alter table `users` add `foo` float not null', $statements[0]);
 	}
+
+    public function testAddingFloatSpecifyingPrecision()
+    {
+        $blueprint = new Blueprint('users');
+        $blueprint->float('foo', 5, 2);
+        $statements = $blueprint->toSql($this->getConnection(), $this->getGrammar());
+
+        $this->assertEquals(1, count($statements));
+        $this->assertEquals('alter table `users` add `foo` float(5, 2) not null', $statements[0]);
+    }
 
 
 	public function testAddingDouble()

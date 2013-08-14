@@ -486,7 +486,7 @@ class Blueprint {
 	 * @param  int     $places
 	 * @return \Illuminate\Support\Fluent
 	 */
-	public function float($column, $total = 8, $places = 2)
+	public function float($column, $total = null, $places = null)
 	{
 		return $this->addColumn('float', $column, compact('total', 'places'));
 	}

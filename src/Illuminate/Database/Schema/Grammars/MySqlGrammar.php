@@ -372,7 +372,17 @@ class MySqlGrammar extends Grammar {
 	 */
 	protected function typeFloat(Fluent $column)
 	{
-		return "float({$column->total}, {$column->places})";
+        // Optionally use MySQL's nonstandard syntax, DOUBLE(M,N).
+        if ($column->total and $column->places)
+        {
+            $sql = "float({$column->total}, {$column->places})";
+        }
+        else
+        {
+            $sql = "float";
+        }
+
+        return $sql;
 	}
 
 	/**
